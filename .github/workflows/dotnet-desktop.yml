@@ -62,3 +62,18 @@ jobs:
 
     - name: Publish
       run: dotnet publish -c Release --self-contained true /p:PublishSingleFile=true
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          bin/Release/net8.0-windows/publish/SettingsGenerator.exe
+        tag_name: v1.0.0
+        release_name: Release 1.0.0
+        body: |
+          This is the first release of the Settings Generator application.
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
