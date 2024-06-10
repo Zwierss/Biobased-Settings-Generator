@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SettingsGenerator;
@@ -22,10 +23,16 @@ public partial class MainWindow : Window
 
     private void CreateFile(object sender, RoutedEventArgs e)
     {
+        Dictionary<string, string> sensorTypeDict = new Dictionary<string, string>();
+        sensorTypeDict.Add("CO2 - (SCD30)", "CO2");
+        sensorTypeDict.Add("Temperature and Humidity - (HDC1080)", "TEMPANDHUMIDITY");
+        sensorTypeDict.Add("VOC - (SGP30)", "VOC");
+
+
         string fileName = "settings.ini";
         string wifiSSID = WiFiSSID.Text;
         string wifiPassword = WiFiPassword.Text;
-        string sensorType = SensorType.Text;
+        string sensorType = sensorTypeDict[SensorType.Text];
         string room = Room.Text;
         string updateInterval = UpdateInterval.Text;
 
@@ -38,14 +45,21 @@ public partial class MainWindow : Window
             return;
         }
 
-            File.WriteAllText(fileName, 
-            "WIFI-SSID=" + wifiSSID + 
-            "\nWIFI-PASSWORD=" + wifiPassword + 
-            "\nSENSOR-TYPE=" + sensorType + 
-            "\nROOM=" + room + 
-            "\nUPDATE-TIME="+updateInterval
-            );
+        if(string.IsNullOrWhiteSpace(updateInterval))
+        {
+            updateInterval = "20000";
+        }
 
-        MessageBox.Show("Settings file has been created successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        string pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+        File.WriteAllText(pathToDesktop + "\\" + fileName, 
+        "WIFI-SSID=" + wifiSSID + 
+        "\nWIFI-PASSWORD=" + wifiPassword + 
+        "\nSENSOR-TYPE=" + sensorType + 
+        "\nROOM=" + room + 
+        "\nUPDATE-TIME="+updateInterval
+        );
+
+        MessageBox.Show("Settings bestand is succesvol gegenereerd.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 }
