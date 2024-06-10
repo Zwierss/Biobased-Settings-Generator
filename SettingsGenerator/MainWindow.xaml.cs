@@ -1,24 +1,21 @@
-﻿using System.Text;
+﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SettingsGenerator
+namespace SettingsGenerator;
+
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
+
+    private void UpdateInterval_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        // Only allow numeric input
+        Regex regex = new Regex("[^0-9]+"); //regex that matches disallowed text
+        e.Handled = regex.IsMatch(e.Text);
     }
 }

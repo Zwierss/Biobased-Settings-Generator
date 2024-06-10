@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SettingsGenerator"
         mc:Ignorable="d"
-        Title="Settings Generator" Height="450" Width="800">
-    <Grid>
+        Title="Settings Generator" Height="450" Width="800"
+        Background="DarkGray">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="DarkGray" Height="30"/>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
 
-    </Grid>
+            <TextBlock Text="WiFi SSID:" Foreground="White" VerticalAlignment="Center" Margin="10" FontSize="16"/>
+            <TextBox Grid.Column="1" Margin="10" Name="WiFiSSID" FontSize="16"/>
+
+            <TextBlock Text="WiFi Password:" Foreground="White" VerticalAlignment="Center" Margin="10" Grid.Row="1" FontSize="16"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="10" Name="WiFiPassword" FontSize="16"/>
+
+            <TextBlock Text="Sensor Type:" Foreground="White" VerticalAlignment="Center" Margin="10" Grid.Row="2" FontSize="16"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Margin="10" Name="SensorType" FontSize="16"/>
+
+            <TextBlock Text="Room:" Foreground="White" VerticalAlignment="Center" Margin="10" Grid.Row="3" FontSize="16"/>
+            <TextBox Grid.Column="1" Grid.Row="3" Margin="10" Name="Room" FontSize="16"/>
+
+            <TextBlock Text="Update Interval:" Foreground="White" VerticalAlignment="Center" Margin="10" Grid.Row="4" FontSize="16"/>
+            <TextBox Grid.Column="1" Grid.Row="4" Margin="10" Name="UpdateInterval" FontSize="16" PreviewTextInput="UpdateInterval_PreviewTextInput"/>
+        </Grid>
+    </DockPanel>
 </Window>
