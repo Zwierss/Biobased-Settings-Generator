@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -47,5 +47,10 @@ public partial class MainWindow : Window
             );
 
         MessageBox.Show("Settings file has been created successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void btnFire_Click(object sender, RoutedEventArgs e)
+    {
+        FolderBrowserDialog dialog = new FolderBrowserDialog();
     }
 }
