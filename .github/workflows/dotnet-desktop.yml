@@ -40,25 +40,35 @@ name: .NET Core Desktop
 
 on:
   push:
-    branches: [ main ]
+    branches: citest
   pull_request:
-    branches: [ main ]
+    branches: citest
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: windows-latest
+  build-dotnet-app:
+
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: 03-app-dotnet
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 8.0.x
-
-    - name: Restore NuGet packages
+        dotnet-version: 6.0.x
+  
+    - name: Restore dependencies
       run: dotnet restore
-
+      
     - name: Build
-      run: msbuild /p:Configuration=Release /p:Platform="Any CPU" /t:Rebuild
+      run: dotnet build --no-restore
+      
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
