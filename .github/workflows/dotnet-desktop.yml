@@ -60,5 +60,5 @@ jobs:
     - name: Restore NuGet packages
       run: dotnet restore
 
-    - name: Build
-      run: dotnet build -c Release
+    - name: Publish
+      run: dotnet publish -c Release --self-contained true /p:PublishSingleFile=true
