@@ -65,7 +65,7 @@ jobs:
 
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@v1
+      uses: actions/upload-release-asset@v1
       with:
         files: |
           bin/Release/net8.0-windows/publish/SettingsGenerator.exe
