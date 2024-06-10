@@ -63,17 +63,20 @@ jobs:
     - name: Publish
       run: dotnet publish -c Release --self-contained true /p:PublishSingleFile=true
 
-    - name: Create Release
-      id: create_release
-      uses: actions/upload-release-asset@v1
-      with:
-        files: |
-          bin/Release/net8.0-windows/publish/SettingsGenerator.exe
-        tag_name: v1.0.0
-        release_name: Release 1.0.0
-        body: |
-          This is the first release of the Settings Generator application.
-        draft: false
-        prerelease: false
+    - name: Create GH Release
+      id: create-new-release
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.run_number }}
+        release_name: Settings Generator ${{ github.run_number }}
+    
+    - name: Upload GH Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+        asset_path: bin/Release/net8.0-windows/publish/SettingsGenerator.exe
+      
