@@ -50,7 +50,7 @@
 
             <TextBlock Text="File Path" Foreground="White" VerticalAlignment="Center" Margin="10" Grid.Row="6" FontSize="16"/>
 
-            <Button Content="Genereer bestand" Click="" FontSize="16" Grid.Row="7" Margin="10"/>
+            <Button Content="Genereer bestand" Click="CreateFile" FontSize="16" Grid.Row="7" Margin="10"/>
         </Grid>
     </DockPanel>
 </Window>
