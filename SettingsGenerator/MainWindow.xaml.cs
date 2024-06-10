@@ -32,20 +32,21 @@ public partial class MainWindow : Window
         string fileName = "settings.ini";
         string wifiSSID = WiFiSSID.Text;
         string wifiPassword = WiFiPassword.Text;
-        string sensorType = sensorTypeDict[SensorType.Text];
         string room = Room.Text;
         string updateInterval = UpdateInterval.Text;
 
         if(string.IsNullOrWhiteSpace(wifiSSID) ||
             string.IsNullOrWhiteSpace(wifiPassword) ||
-            string.IsNullOrWhiteSpace(sensorType) ||
+            string.IsNullOrWhiteSpace(SensorType.Text) ||
             string.IsNullOrWhiteSpace(room))
         {
             MessageBox.Show("Vul alstublieft alle velden in.", "Validation error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
-        if(string.IsNullOrWhiteSpace(updateInterval))
+        string sensorType = sensorTypeDict[SensorType.Text];
+
+        if (string.IsNullOrWhiteSpace(updateInterval))
         {
             updateInterval = "20000";
         }
