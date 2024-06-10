@@ -1,17 +1,21 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Win32;
 
 namespace SettingsGenerator;
 
 public partial class MainWindow : Window
 {
+    private string selectedFolderPath;
+
     public MainWindow()
     {
         InitializeComponent();
+        selectedFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
     }
 
     private void UpdateInterval_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -51,9 +55,11 @@ public partial class MainWindow : Window
             updateInterval = "20000";
         }
 
-        string pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        var dialog = new OpenFolderDialog();
+        dialog.ShowDialog();
+        selectedFolderPath = Path.GetFullPath(dialog.FolderName);
 
-        File.WriteAllText(pathToDesktop + "\\" + fileName, 
+        File.WriteAllText(selectedFolderPath + "\\" + fileName, 
         "WIFI-SSID=" + wifiSSID + 
         "\nWIFI-PASSWORD=" + wifiPassword + 
         "\nSENSOR-TYPE=" + sensorType + 
