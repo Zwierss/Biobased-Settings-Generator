@@ -49,6 +49,13 @@ public partial class MainWindow : Window
         {
             updateInterval = "20000";
         }
+        File.WriteAllText(fileName, 
+            "WIFI-SSID=" + wifiSSID + 
+            "\nWIFI-PASSWORD=" + wifiPassword + 
+            "\nSENSOR-TYPE=" + sensorType + 
+            "\nROOM=" + room + 
+            "\nUPDATE-TIME="+updateInterval
+            );
 
         string pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
@@ -61,10 +68,5 @@ public partial class MainWindow : Window
         );
 
         MessageBox.Show("Settings bestand is succesvol gegenereerd.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
-    private void btnFire_Click(object sender, RoutedEventArgs e)
-    {
-        FolderBrowserDialog dialog = new FolderBrowserDialog();
     }
 }
