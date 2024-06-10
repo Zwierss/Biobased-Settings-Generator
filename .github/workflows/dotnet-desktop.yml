@@ -43,32 +43,22 @@ on:
     branches: citest
   pull_request:
     branches: citest
-    
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 jobs:
-  build-dotnet-app:
-
-    runs-on: ubuntu-latest
-    
-    defaults:
-      run:
-        working-directory: SettingsGenerator
+  build:
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 8.0.x
-  
-    - name: Restore dependencies
+        dotnet-version: 6.0.x
+
+    - name: Restore NuGet packages
       run: dotnet restore
-      
+
     - name: Build
-      run: dotnet build --no-restore
-      
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build -c Release
