@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -17,5 +18,23 @@ public partial class MainWindow : Window
         // Only allow numeric input
         Regex regex = new Regex("[^0-9]+"); //regex that matches disallowed text
         e.Handled = regex.IsMatch(e.Text);
+    }
+
+    private void CreateFile()
+    {
+        string fileName = "settings.ini";
+        string wifiSSID = WiFiSSID.Text;
+        string wifiPassword = WiFiPassword.Text;
+        string sensorType = SensorType.Text;
+        string room = Room.Text;
+        string updateInterval = UpdateInterval.Text;
+
+        File.WriteAllText(fileName, 
+            "WIFI-SSID=" + wifiSSID + 
+            "\nWIFI-PASSWORD=" + wifiPassword + 
+            "\nSENSOR-TYPE=" + sensorType + 
+            "\nROOM=" + room + 
+            "\nUPDATE-TIME="+updateInterval
+            );
     }
 }
