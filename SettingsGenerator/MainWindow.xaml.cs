@@ -32,13 +32,16 @@ public partial class MainWindow : Window
         sensorTypeDict.Add("Temperature and Humidity - (HDC1080)", "TEMPANDHUMIDITY");
         sensorTypeDict.Add("VOC - (SGP30)", "VOC");
 
+        Dictionary<string, string> debugDictionary = new Dictionary<string, string>();
+        debugDictionary.Add("Aan", "true");
+        debugDictionary.Add("Uit", "false");
 
         string fileName = "settings.ini";
         string wifiSSID = WiFiSSID.Text;
         string wifiPassword = WiFiPassword.Text;
         string room = Room.Text;
         string updateInterval = UpdateInterval.Text;
-        string debugMode = DebugMode.Text;
+        string debugMode = debugDictionary[DebugMode.Text];
 
         if(string.IsNullOrWhiteSpace(wifiSSID) ||
             string.IsNullOrWhiteSpace(wifiPassword) ||
