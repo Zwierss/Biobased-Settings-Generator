@@ -41,7 +41,7 @@ public partial class MainWindow : Window
         string wifiPassword = WiFiPassword.Text;
         string room = Room.Text;
         string updateInterval = UpdateInterval.Text;
-        string debugMode = debugDictionary[DebugMode.Text];
+        string debugMode = DebugMode.Text;
 
         if(string.IsNullOrWhiteSpace(wifiSSID) ||
             string.IsNullOrWhiteSpace(wifiPassword) ||
@@ -63,6 +63,8 @@ public partial class MainWindow : Window
         {
             debugMode = "false";
         }
+
+        debugMode = debugDictionary[DebugMode.Text];
 
         var dialog = new OpenFolderDialog();
         dialog.ShowDialog();
