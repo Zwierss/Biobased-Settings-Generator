@@ -32,12 +32,16 @@ public partial class MainWindow : Window
         sensorTypeDict.Add("Temperature and Humidity - (HDC1080)", "TEMPANDHUMIDITY");
         sensorTypeDict.Add("VOC - (SGP30)", "VOC");
 
+        Dictionary<string, string> debugDictionary = new Dictionary<string, string>();
+        debugDictionary.Add("Aan", "true");
+        debugDictionary.Add("Uit", "false");
 
         string fileName = "settings.ini";
         string wifiSSID = WiFiSSID.Text;
         string wifiPassword = WiFiPassword.Text;
         string room = Room.Text;
         string updateInterval = UpdateInterval.Text;
+        string debugMode = debugDictionary[DebugMode.Text];
 
         if(string.IsNullOrWhiteSpace(wifiSSID) ||
             string.IsNullOrWhiteSpace(wifiPassword) ||
@@ -55,6 +59,11 @@ public partial class MainWindow : Window
             updateInterval = "20000";
         }
 
+        if (string.IsNullOrWhiteSpace(debugMode))
+        {
+            debugMode = "false";
+        }
+
         var dialog = new OpenFolderDialog();
         dialog.ShowDialog();
         selectedFolderPath = Path.GetFullPath(dialog.FolderName);
@@ -64,7 +73,8 @@ public partial class MainWindow : Window
         "\nWIFI-PASSWORD=" + wifiPassword + 
         "\nSENSOR-TYPE=" + sensorType + 
         "\nROOM=" + room + 
-        "\nUPDATE-TIME="+updateInterval
+        "\nUPDATE-TIME=" + updateInterval +
+        "\nDEBUG-MODE=" + debugMode
         );
 
         MessageBox.Show("Settings bestand is succesvol gegenereerd.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
