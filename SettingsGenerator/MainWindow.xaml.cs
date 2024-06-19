@@ -61,10 +61,10 @@ public partial class MainWindow : Window
 
         if (string.IsNullOrWhiteSpace(debugMode))
         {
-            debugMode = "false";
+            debugMode = "Uit";
         }
 
-        debugMode = debugDictionary[DebugMode.Text];
+        debugMode = debugDictionary[debugMode];
 
         var dialog = new OpenFolderDialog();
         dialog.ShowDialog();
